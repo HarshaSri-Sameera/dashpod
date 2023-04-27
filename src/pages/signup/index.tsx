@@ -25,8 +25,8 @@ export default function SignUp() {
     signUp({
       email: data.get("email"),
       password: data.get("password"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
+      username: data.get("username"),
+      phone_number: data.get("phone_number"),
     });
     console.log({
       email: data.get("email"),
@@ -64,11 +64,11 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="username"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="username"
+                  label="Username"
                   autoFocus
                 />
               </Grid>
@@ -76,10 +76,10 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="phone_number"
+                  label="Phone number"
+                  name="phone_number"
+                  autoComplete="phone_number"
                 />
               </Grid>
               <Grid item xs={12}>
