@@ -9,6 +9,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children?: React.ReactNode;
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   async function signOut() {
     try {
       await Auth.signOut();
@@ -37,10 +38,32 @@ export const AuthProvider = ({ children }: Props) => {
   async function signIn({ username, password }) {
     try {
       const user = await Auth.signIn(username, password);
-    } catch (error) {
-      console.log("error signing in", error);
+    } catch (e) {
+      var newError = new Error("User is not confirmed.");
+      if (e.message === newError.message) {
+        console.log("not confirmed confirmation needed");
+        navigate("/confirm-user");
+      }
     }
   }
+
+  async function resendConfirmationCode() {
+    try {
+      await Auth.resendSignUp(username);
+      console.log("code resent successfully");
+    } catch (err) {
+      console.log("error resending code: ", err);
+    }
+  }
+
+  async function confirmSignUp() {
+    try {
+      await Auth.confirmSignUp(username, code);
+    } catch (error) {
+      console.log("error confirming sign up", error.response.data);
+    }
+  }
+
   //@ts-ignore
   async function signUp({ username, password, email, phone_number }) {
     try {

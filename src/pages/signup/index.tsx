@@ -28,12 +28,6 @@ export default function SignUp() {
       username: data.get("username"),
       phone_number: data.get("phone_number"),
     });
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-    });
   };
 
   return (

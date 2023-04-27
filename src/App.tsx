@@ -13,7 +13,7 @@ Amplify.configure(awsconfig);
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
