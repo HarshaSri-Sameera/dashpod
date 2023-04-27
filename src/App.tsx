@@ -9,13 +9,21 @@ import { Rehydrated } from "aws-appsync-react";
 
 import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
+import PrivateRouter from "./components/route/PrivateRoute";
 Amplify.configure(awsconfig);
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRouter>
+              <Dashboard />
+            </PrivateRouter>
+          }
+        />
       </Routes>
       <Routes>
         <Route path="/" element={<SignInSide />} />

@@ -22,6 +22,8 @@ import { mainListItems, secondaryListItems } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
+import { DashboardTwoTone } from "@material-ui/icons";
+import PrivateRouter from "../../components/route/PrivateRoute";
 
 function Copyright() {
   return (
@@ -117,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -212,3 +214,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;

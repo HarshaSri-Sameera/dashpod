@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./components/hooks/useAuth";
 import { BrowserRouter } from "react-router-dom";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <Authenticator.Provider>
+          <App />
+        </Authenticator.Provider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
