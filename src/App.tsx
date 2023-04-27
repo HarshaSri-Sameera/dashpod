@@ -10,6 +10,7 @@ import { Rehydrated } from "aws-appsync-react";
 import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import PrivateRouter from "./components/route/PrivateRoute";
+import OtpScreen from "./components/atoms/OTP";
 Amplify.configure(awsconfig);
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/" element={<SignInSide />} />
+      </Routes>
+      <Routes>
+        <Route path="/confirm-user" element={<OtpScreen />} />
       </Routes>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
