@@ -10,27 +10,19 @@ Amplify.configure(awsconfig);
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRouter>
-              <Dashboard />
-            </PrivateRouter>
-          }
-        />
-      </Routes>
-      <Routes>
-        <Route path="/" element={<SignInSide />} />
-      </Routes>
-      <Routes>
-        <Route path="/confirm-user" element={<OtpScreen />} />
-      </Routes>
-      <Routes>
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRouter>
+            <Dashboard />
+          </PrivateRouter>
+        }
+      />
+      <Route path="/" element={<SignInSide />} />
+      <Route path="/confirm-user" element={<OtpScreen />} />
+      <Route path="/signup" element={<SignUp />} />
+    </Routes>
   );
 }
 

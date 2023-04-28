@@ -60,11 +60,15 @@ export const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  async function confirmSignUp() {
+  async function confirmSignUp({ username, code }) {
     try {
-      await Auth.confirmSignUp(username, code);
+      const user = await Auth.confirmSignUp(username, code);
+      if (user) {
+        navigate("/dashboard");
+        console.log("user is confirmed", user);
+      }
     } catch (error) {
-      console.log("error confirming sign up", error.response.data);
+      console.log("error confirming sign up", error);
     }
   }
 
@@ -84,6 +88,10 @@ export const AuthProvider = ({ children }: Props) => {
           enabled: true,
         },
       });
+      if (user && user?.username) {
+        setUser({ ...user, username: user.username });
+        navigate("/confirm-user");
+      }
       //if(user)
       console.log(user);
     } catch (error) {
@@ -99,6 +107,7 @@ export const AuthProvider = ({ children }: Props) => {
         signIn,
         signUp,
         signOut,
+        confirmSignUp,
       }}
     >
       {children}
