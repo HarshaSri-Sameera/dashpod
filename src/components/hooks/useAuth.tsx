@@ -27,6 +27,10 @@ export const AuthProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getCurrentSession();
+  }, []);
   async function signOut() {
     try {
       await Auth.signOut();
@@ -38,12 +42,11 @@ export const AuthProvider = ({ children }: Props) => {
   async function signIn({ username, password }) {
     try {
       const user = await Auth.signIn(username, password);
-      console.log("this is user", user);
       if (user?.attributes?.email_verified) {
+        setUser(user.attributes);
         navigate("/dashboard");
       }
     } catch (e) {
-      console.log("this is error", e);
       var newError = new Error("User is not confirmed.");
       if (e.message === newError.message) {
         navigate("/confirm-user");
@@ -51,12 +54,22 @@ export const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  async function resendConfirmationCode() {
+  async function resendConfirmationCode({ username }) {
     try {
       await Auth.resendSignUp(username);
-      console.log("code resent successfully");
     } catch (err) {
       console.log("error resending code: ", err);
+    }
+  }
+  async function getCurrentSession() {
+    try {
+      const userSession = await Auth.currentSession();
+      if (userSession?.idToken?.payload?.email_verified) {
+        setUser(userSession?.idToken?.payload);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error, "error in checking");
     }
   }
 
@@ -108,6 +121,7 @@ export const AuthProvider = ({ children }: Props) => {
         signUp,
         signOut,
         confirmSignUp,
+        getCurrentSession,
       }}
     >
       {children}

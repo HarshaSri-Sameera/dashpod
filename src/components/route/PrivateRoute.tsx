@@ -1,10 +1,9 @@
 import { useLocation, Navigate } from "react-router-dom";
-import { useAuthenticator } from "@aws-amplify/ui-react";
-
+import { useAuth } from "../hooks/useAuth";
 export function PrivateRouter({ children }) {
   const location = useLocation();
-  const { route } = useAuthenticator((context) => [context.route]);
-  if (route !== "authenticated") {
+  const { user } = useAuth();
+  if (!user?.email_verified) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
   return children;

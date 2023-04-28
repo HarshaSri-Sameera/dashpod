@@ -6,6 +6,7 @@ import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import PrivateRouter from "./components/route/PrivateRoute";
 import OtpScreen from "./components/atoms/OTP";
+import WelcomeLayout from "./components/layouts/WelcomeLayout";
 Amplify.configure(awsconfig);
 
 function App() {
@@ -19,9 +20,30 @@ function App() {
           </PrivateRouter>
         }
       />
-      <Route path="/" element={<SignInSide />} />
-      <Route path="/confirm-user" element={<OtpScreen />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route
+        path="/"
+        element={
+          <WelcomeLayout>
+            <SignInSide />
+          </WelcomeLayout>
+        }
+      />
+      <Route
+        path="/confirm-user"
+        element={
+          <WelcomeLayout>
+            <OtpScreen />
+          </WelcomeLayout>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <WelcomeLayout>
+            <SignUp />
+          </WelcomeLayout>
+        }
+      />
     </Routes>
   );
 }
