@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -23,7 +23,9 @@ import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
 import { DashboardTwoTone } from "@material-ui/icons";
-import PrivateRouter from "../../components/route/PrivateRoute";
+
+import { API, graphqlOperation } from "aws-amplify";
+import GetRecordQuery from "../../graphqlQueries/GetRecordQuery.js";
 
 function Copyright() {
   return (
@@ -122,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -130,6 +133,13 @@ function Dashboard() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const data = await API.graphql(graphqlOperation(GetRecordQuery));
+    console.log("data", data);
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />

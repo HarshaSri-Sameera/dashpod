@@ -38,10 +38,14 @@ export const AuthProvider = ({ children }: Props) => {
   async function signIn({ username, password }) {
     try {
       const user = await Auth.signIn(username, password);
+      console.log("this is user", user);
+      if (user?.attributes?.email_verified) {
+        navigate("/dashboard");
+      }
     } catch (e) {
+      console.log("this is error", e);
       var newError = new Error("User is not confirmed.");
       if (e.message === newError.message) {
-        console.log("not confirmed confirmation needed");
         navigate("/confirm-user");
       }
     }
@@ -80,6 +84,7 @@ export const AuthProvider = ({ children }: Props) => {
           enabled: true,
         },
       });
+      //if(user)
       console.log(user);
     } catch (error) {
       console.log("error signing up:", error);

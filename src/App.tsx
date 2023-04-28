@@ -1,13 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/signup";
-import SignInSide from "./pages/signin";
+import SignInSide from "./pages/signin/signinTemp";
 import Dashboard from "./pages/dashboard";
-import appSyncConfig from "./aws-exports";
-import { ApolloProvider } from "react-apollo";
-import AWSAppSyncClient, { defaultDataIdFromObject } from "aws-appsync";
-import { Rehydrated } from "aws-appsync-react";
-
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import PrivateRouter from "./components/route/PrivateRoute";
 import OtpScreen from "./components/atoms/OTP";
