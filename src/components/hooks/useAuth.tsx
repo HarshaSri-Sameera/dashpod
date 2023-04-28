@@ -75,10 +75,13 @@ export const AuthProvider = ({ children }: Props) => {
 
   async function confirmSignUp({ username, code }) {
     try {
-      const user = await Auth.confirmSignUp(username, code);
-      if (user) {
+      const confirmOtp = await Auth.confirmSignUp(username, code);
+      if (confirmOtp && confirmOtp === "SUCCESS") {
+        setUser({
+          ...(user || {}),
+          email_verified: true,
+        });
         navigate("/dashboard");
-        console.log("user is confirmed", user);
       }
     } catch (error) {
       console.log("error confirming sign up", error);
