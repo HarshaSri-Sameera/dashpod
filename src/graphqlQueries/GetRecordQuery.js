@@ -1,5 +1,5 @@
 const GetRecordQuery = `query getRecordActivity {
-  getRecordActivity(accountId: "12345", last_upd_time: "2023-03-21") {
+  getRecordActivity(accountId: "1351df17-2ec1-4666-ac0c-e43af3522adb", last_upd_time: "2023-03-21") {
     status
     data {
       recordId
