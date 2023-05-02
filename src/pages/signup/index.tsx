@@ -14,6 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CopyRight from "../../components/atoms/CopyRight";
 import { useAuth } from "../../components/hooks/useAuth";
+import LoginSigninLayout from "../../components/layouts/LoginSigninLayout";
+import StyledInput from "../../components/atoms/StyledInput";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    background: "linear-gradient(180deg, #E94C2B 0%, #D22500 100%)",
+    color: theme.palette.text.primary,
+    textTransform: "none",
   },
 }));
 
@@ -50,19 +55,15 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+    <>
+      <LoginSigninLayout>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <StyledInput
                 autoComplete="username"
                 name="username"
                 variant="outlined"
@@ -74,7 +75,7 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <StyledInput
                 variant="outlined"
                 required
                 fullWidth
@@ -85,7 +86,7 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <StyledInput
                 variant="outlined"
                 required
                 fullWidth
@@ -96,7 +97,7 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <StyledInput
                 variant="outlined"
                 required
                 fullWidth
@@ -105,12 +106,6 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
@@ -131,10 +126,11 @@ export default function SignUp() {
             </Grid>
           </Grid>
         </form>
-      </div>
+      </LoginSigninLayout>
+
       <Box mt={5}>
         <CopyRight />
       </Box>
-    </Container>
+    </>
   );
 }
