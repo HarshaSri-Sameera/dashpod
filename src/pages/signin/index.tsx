@@ -14,20 +14,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import CopyRight from "../../components/atoms/CopyRight";
 import { useAuth } from "../../components/hooks/useAuth";
-
+import StyledInput from "../../components/atoms/StyledInput";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
   },
   image: {
     backgroundImage: "url(https://source.unsplash.com/random)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -45,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: "none",
+    background: "linear-gradient(180deg, #E94C2B 0%, #D22500 100%)",
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -63,16 +59,29 @@ export default function SignInSide() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, #000000 70.31%)",
+        }}
+      >
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img src={"/dashpod_logo.png"} style={{ margin: "10px 0" }} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <Typography component="h1" variant="body1">
+            Sign in with your email address
+          </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
+            <StyledInput
               variant="outlined"
               margin="normal"
               required
@@ -83,7 +92,7 @@ export default function SignInSide() {
               autoComplete="username"
               autoFocus
             />
-            <TextField
+            <StyledInput
               variant="outlined"
               margin="normal"
               required
@@ -93,10 +102,6 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
@@ -109,13 +114,13 @@ export default function SignInSide() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link href="/signup" variant="body2">
+                  {"Sign Up"}
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="#" variant="body2">
+                  Forgot password?
                 </Link>
               </Grid>
             </Grid>
