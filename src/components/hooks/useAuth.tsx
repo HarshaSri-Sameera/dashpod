@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }: Props) => {
       console.log("error resending code: ", err);
     }
   }
+
   async function getCurrentSession() {
     try {
       const userSession = await Auth.currentSession();

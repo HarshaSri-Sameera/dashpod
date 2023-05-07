@@ -8,15 +8,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Authenticator } from "@aws-amplify/ui-react";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <Authenticator.Provider>
-          <App />
-        </Authenticator.Provider>
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <AuthProvider>
+      <Authenticator.Provider>
+        <App />
+      </Authenticator.Provider>
+    </AuthProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

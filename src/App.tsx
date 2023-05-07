@@ -8,6 +8,8 @@ import PrivateRouter from "./components/route/PrivateRoute";
 import OtpScreen from "./components/atoms/OTP";
 import WelcomeLayout from "./components/layouts/WelcomeLayout";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import Example from "./pages/demo";
+import CreateProfile from "./pages/signup/completeProfile";
 
 Amplify.configure(awsconfig);
 
@@ -67,6 +69,15 @@ function App() {
             </WelcomeLayout>
           }
         />
+        <Route
+          path="/demo"
+          element={
+            <WelcomeLayout>
+              <Example />
+            </WelcomeLayout>
+          }
+        />
+        <Route path="/completeProfile" element={<CreateProfile />} />
       </Routes>
     </ThemeProvider>
   );

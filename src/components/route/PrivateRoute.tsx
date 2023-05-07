@@ -6,6 +6,9 @@ export function PrivateRouter({ children }) {
   if (!user?.email_verified) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
+  if (!user?.profile) {
+    return <Navigate to="/completeProfile" replace={true} />;
+  }
   return children;
 }
 
