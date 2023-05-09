@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/signup";
-import SignInSide from "./pages/signin/";
+import SignInSide from "./pages/signin";
 import Dashboard from "./pages/dashboard";
 import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
