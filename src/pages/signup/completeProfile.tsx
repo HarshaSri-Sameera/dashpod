@@ -3,7 +3,7 @@ import { useAuth } from "../../components/hooks/useAuth";
 import ModalSection from "../../components/atoms/Modal";
 export default function CreateProfile() {
   const { signUp } = useAuth();
-  const [category, setCategory] = useState();
+  const [formData, setFormData] = useState();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -16,7 +16,7 @@ export default function CreateProfile() {
   };
 
   const handleCategoryClick = (e) => {
-    setCategory(e.currentTarget.dataset.id);
+    setFormData({ category: e.currentTarget.dataset.id });
   };
   return (
     <>
@@ -88,7 +88,7 @@ export default function CreateProfile() {
             </li>
           </ul>
         </div>
-        <ModalSection />
+        <ModalSection handleSubmit={handleSubmit} />
       </div>
     </>
   );
