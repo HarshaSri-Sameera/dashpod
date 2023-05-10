@@ -1,4 +1,7 @@
 import { useAuth } from "../../components/hooks/useAuth";
+import React, { useState } from 'react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 export default function SignUp() {
   const { signUp } = useAuth();
@@ -12,6 +15,13 @@ export default function SignUp() {
       phone_number: data.get("phone_number"),
     });
   };
+
+  const [phoneValue, setPhoneValue] = useState('');
+
+  function handlePhoneInputChange(value) {
+    setPhoneValue(value);
+  }
+
   return (
     <>
       {/*
@@ -46,7 +56,7 @@ export default function SignUp() {
                   type="username"
                   autoComplete="username"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -64,25 +74,29 @@ export default function SignUp() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="phone-input"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Phone
               </label>
               <div className="mt-2">
-                <input
-                  id="phone"
-                  name="phone"
-                  type="phone"
-                  autoComplete="phone"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                <PhoneInput
+                  country="in"
+                  value={phoneValue}
+                  onChange={handlePhoneInputChange}
+                  inputProps={{
+                    name: 'phone',
+                    required: true,
+                    autoFocus: true,
+                    placeholder: 'Enter phone number',
+                    style: { width: '383px'}
+                  }}
                 />
               </div>
             </div>
@@ -97,7 +111,7 @@ export default function SignUp() {
                 {/*<div className="text-sm">
                   <a
                     href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                    className="font-semibold text-orange-600 hover:text-orange-500"
                   >
                     Forgot password?
                   </a>
@@ -110,7 +124,7 @@ export default function SignUp() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
