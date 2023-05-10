@@ -3,10 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import CustomDatePicker from "./DatePicker";
 
-export default function ModalSection({ handleSubmit, handleFormChange }) {
-  const [open, setOpen] = useState(true);
-
+export default function ModalSection({ handleSubmit, open, setOpen }) {
   const cancelButtonRef = useRef(null);
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -39,7 +38,7 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-2 lg:px-8">
                   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -57,9 +56,9 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                           <div className="mt-2">
                             <input
                               type="text"
-                              name="first-name"
                               id="first-name"
-                              autoComplete="given-name"
+                              name="firstName"
+                              autoComplete="fistName"
                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                           </div>
@@ -75,7 +74,7 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                           <div className="mt-2">
                             <input
                               type="text"
-                              name="last-name"
+                              name="lastName"
                               id="last-name"
                               autoComplete="family-name"
                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -96,6 +95,7 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                             name="gender"
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            value="male"
                           />
                           <label
                             htmlFor="gender-male"
@@ -110,6 +110,7 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                             name="gender"
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            value="female"
                           />
                           <label
                             htmlFor="gender-female"
@@ -124,6 +125,7 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                             name="gender"
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            value="other"
                           />
                           <label
                             htmlFor="gender-other"
@@ -155,17 +157,17 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                             <input
                               type="number"
                               name="weight"
-                              id="price"
+                              id="weight-input"
                               className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder="0.00"
                             />
                             <div className="absolute inset-y-0 right-0 flex items-center">
-                              <label htmlFor="currency" className="sr-only">
-                                Measurement
+                              <label htmlFor="weight-input" className="sr-only">
+                                Weight
                               </label>
                               <select
-                                id="currency"
-                                name="currency"
+                                id="weight-measure"
+                                name="weightMeasurement"
                                 className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                               >
                                 <option>KG</option>
@@ -183,18 +185,21 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                           <div className="relative mt-2 rounded-md shadow-sm">
                             <input
                               type="number"
-                              name="weight"
-                              id="weight"
+                              name="height"
+                              id="height"
                               className="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder="0.00"
                             />
                             <div className="absolute inset-y-0 right-0 flex items-center">
-                              <label htmlFor="height" className="sr-only">
+                              <label
+                                htmlFor="height-measurement"
+                                className="sr-only"
+                              >
                                 Height
                               </label>
                               <select
-                                id="height"
-                                name="height"
+                                id="height-measurement"
+                                name="heightMeasurement"
                                 className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                               >
                                 <option>Inch</option>
@@ -212,19 +217,17 @@ export default function ModalSection({ handleSubmit, handleFormChange }) {
                         >
                           Submit
                         </button>
+                        <button
+                          type="button"
+                          className="mt-3 flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                          onClick={() => setOpen(false)}
+                          ref={cancelButtonRef}
+                        >
+                          Cancel
+                        </button>
                       </div>
                     </form>
                   </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

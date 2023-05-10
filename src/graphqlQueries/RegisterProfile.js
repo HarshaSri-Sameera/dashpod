@@ -31,3 +31,5 @@ mutation registerProfile {
     }
   }
 `
+
+export default RegisterProfile;

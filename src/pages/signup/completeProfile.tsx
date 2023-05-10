@@ -1,22 +1,48 @@
 import { useState } from "react";
 import { useAuth } from "../../components/hooks/useAuth";
 import ModalSection from "../../components/atoms/Modal";
+import { API, graphqlOperation } from "aws-amplify";
+import RegisterProfile from "../../graphqlQueries/RegisterProfile.js";
+
 export default function CreateProfile() {
   const { signUp } = useAuth();
   const [formData, setFormData] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const registerProfile = async (variableData) => {
+    const data = await API.graphql(
+      graphqlOperation(RegisterProfile, { ...variableData })
+    );
+    console.log("data", data);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    signUp({
-      email: data.get("email"),
-      password: data.get("password"),
-      username: data.get("username"),
-      phone_number: data.get("phone_number"),
+    const playerId = new Date().getTime();
+    const profileId = new Date().getTime();
+    registerProfile({
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      height: data.get("height"),
+      weight: data.get("weight"),
+      gender: data.get("gender"),
+      dob: data.get("dob"),
+      profileId,
+      playerId,
     });
+
+    // signUp({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    //   username: data.get("username"),
+    //   phone_number: data.get("phone_number"),
+    // });
   };
 
   const handleCategoryClick = (e) => {
     setFormData({ category: e.currentTarget.dataset.id });
+    setModalOpen(true);
   };
   return (
     <>
@@ -88,7 +114,11 @@ export default function CreateProfile() {
             </li>
           </ul>
         </div>
-        <ModalSection handleSubmit={handleSubmit} />
+        <ModalSection
+          handleSubmit={handleSubmit}
+          open={modalOpen}
+          setOpen={setModalOpen}
+        />
       </div>
     </>
   );
