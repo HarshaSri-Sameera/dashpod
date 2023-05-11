@@ -10,6 +10,8 @@ import React, {
   useCallback,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import GetProfile from "../../graphqlQueries/GetProfile";
+import { API, graphqlOperation } from "aws-amplify";
 
 interface Props {
   children?: React.ReactNode;
@@ -66,8 +68,17 @@ export const AuthProvider = ({ children }: Props) => {
     try {
       const userSession = await Auth.currentSession();
       if (userSession?.idToken?.payload?.email_verified) {
-        setUser(userSession?.idToken?.payload);
-        navigate("/dashboard");
+        const accountId = userSession?.idToken?.payload?.sub;
+
+        const { data } = await API.graphql(
+          graphqlOperation(GetProfile, { accountId })
+        );
+        if (data?.getProfiles?.status === "success") {
+          setUser({ ...userSession?.idToken?.payload, profile: true });
+          navigate("/dashboard");
+        } else {
+          setUser({ ...userSession?.idToken?.payload });
+        }
       }
     } catch (error) {
       console.log(error, "error in checking");
@@ -82,7 +93,7 @@ export const AuthProvider = ({ children }: Props) => {
           ...(user || {}),
           email_verified: true,
         });
-        navigate("/dashboard");
+        navigate("/completeProfile");
       }
     } catch (error) {
       console.log("error confirming sign up", error);
@@ -109,8 +120,6 @@ export const AuthProvider = ({ children }: Props) => {
         setUser({ ...user, username: user.username });
         navigate("/confirm-user");
       }
-      //if(user)
-      console.log(user);
     } catch (error) {
       console.log("error signing up:", error);
     }
@@ -126,6 +135,7 @@ export const AuthProvider = ({ children }: Props) => {
         signOut,
         confirmSignUp,
         getCurrentSession,
+        setUser,
       }}
     >
       {children}

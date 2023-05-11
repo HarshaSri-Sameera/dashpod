@@ -3,24 +3,29 @@ import { useAuth } from "../../components/hooks/useAuth";
 import ModalSection from "../../components/atoms/Modal";
 import { API, graphqlOperation } from "aws-amplify";
 import RegisterProfile from "../../graphqlQueries/RegisterProfile.js";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateProfile() {
-  const { signUp } = useAuth();
+  const { user, setUser } = useAuth();
   const [formData, setFormData] = useState();
   const [modalOpen, setModalOpen] = useState(false);
-
+  const navigate = useNavigate();
   const registerProfile = async (variableData) => {
     const data = await API.graphql(
       graphqlOperation(RegisterProfile, { ...variableData })
     );
-    console.log("data", data);
+    if (!data.errors) {
+      setUser({ ...user, profile: true });
+      navigate("/dashboard");
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const playerId = new Date().getTime();
-    const profileId = new Date().getTime();
+    const profileId = Math.floor(new Date().getTime() / 1000);
+
     registerProfile({
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
@@ -28,16 +33,11 @@ export default function CreateProfile() {
       weight: data.get("weight"),
       gender: data.get("gender"),
       dob: data.get("dob"),
-      profileId,
-      playerId,
+      profileId: profileId,
+      playerId: playerId.toString(),
+      areasOfIntrest: ["Martial Arts", "Football"],
+      accountId: user.sub,
     });
-
-    // signUp({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    //   username: data.get("username"),
-    //   phone_number: data.get("phone_number"),
-    // });
   };
 
   const handleCategoryClick = (e) => {
