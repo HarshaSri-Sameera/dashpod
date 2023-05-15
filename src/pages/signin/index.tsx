@@ -94,7 +94,7 @@ export default function SignInSide() {
               href="/signup"
               className="font-semibold leading-6 text-orange-600 hover:text-orange-500"
             >
-              Signup
+              Sign up
             </a>
           </p>
         </div>

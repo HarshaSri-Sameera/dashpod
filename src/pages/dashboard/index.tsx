@@ -121,6 +121,13 @@ function Dashboard() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="pl-2 pt-2 text-base font-medium leading-none text-gray">
+                          {user?.["cognito:username"]}
+                        </div>
+                        <div className="pl-2 pt-2 text-sm font-medium leading-none text-gray-400">
+                          {user.email}
+                        </div>
+                          <div className="border-b border-gray border-2 mt-2"></div>
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
@@ -217,10 +224,16 @@ function Dashboard() {
         )}
       </Disclosure>
       <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Dashboard
           </h1>
+          <div className="float-right">
+            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+              <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+              <span>Download</span>
+            </button>
+          </div>
         </div>
       </header>
       <main>
