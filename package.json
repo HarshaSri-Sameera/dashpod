@@ -17,6 +17,8 @@
     "aws-appsync": "^4.1.9",
     "aws-appsync-react": "^4.0.15",
     "graphql-tag": "^2.12.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "react": "^16.8.0",
     "react-apollo": "^2.5.8",
     "react-datepicker": "^4.11.0",

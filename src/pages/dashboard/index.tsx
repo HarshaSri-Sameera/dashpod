@@ -14,7 +14,9 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { SettingsOverscanTwoTone } from "@material-ui/icons";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+
 const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
 
 const navigation = [
@@ -39,6 +41,18 @@ const getRandomColor = () => {
 function Dashboard() {
   const [graphData, setGraphData] = useState([]);
   const { user } = useAuth();
+
+  function printDocument() {
+    const input = document.getElementById("mainDashboardElement");
+    html2canvas(input, { scale: "1" }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save("download.pdf");
+    });
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -52,10 +66,8 @@ function Dashboard() {
     }
   };
 
-  console.log("this is graph data", graphData);
-
   return (
-    <div className="min-h-full">
+    <div className="min-h-full" id="mainDashboardElement">
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
@@ -121,12 +133,12 @@ function Dashboard() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="pl-2 pt-2 text-base font-medium leading-none text-gray">
-                          {user?.["cognito:username"]}
-                        </div>
-                        <div className="pl-2 pt-2 text-sm font-medium leading-none text-gray-400">
-                          {user.email}
-                        </div>
+                          <div className="pl-2 pt-2 text-base font-medium leading-none text-gray">
+                            {user?.["cognito:username"]}
+                          </div>
+                          <div className="pl-2 pt-2 text-sm font-medium leading-none text-gray-400">
+                            {user.email}
+                          </div>
                           <div className="border-b border-gray border-2 mt-2"></div>
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
@@ -229,8 +241,17 @@ function Dashboard() {
             Dashboard
           </h1>
           <div className="float-right">
-            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-              <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+            <button
+              onClick={printDocument}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+            >
+              <svg
+                className="fill-current w-4 h-4 mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+              </svg>
               <span>Download</span>
             </button>
           </div>
