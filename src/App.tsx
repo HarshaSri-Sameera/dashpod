@@ -10,6 +10,7 @@ import WelcomeLayout from "./components/layouts/WelcomeLayout";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import Example from "./pages/demo";
 import CreateProfile from "./pages/signup/completeProfile";
+import "./App.css";
 
 Amplify.configure(awsconfig);
 

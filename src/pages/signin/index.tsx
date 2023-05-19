@@ -20,10 +20,11 @@ export default function SignInSide() {
           <body class="h-full">
           ```
         */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-black ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img src={"/dashpod_logo.png"} className="mx-auto h-10 w-auto" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign in to your account
           </h2>
         </div>
@@ -33,7 +34,7 @@ export default function SignInSide() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Username
               </label>
@@ -53,7 +54,7 @@ export default function SignInSide() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-white"
                 >
                   Password
                 </label>

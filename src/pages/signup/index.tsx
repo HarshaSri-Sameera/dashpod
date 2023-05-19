@@ -1,7 +1,7 @@
 import { useAuth } from "../../components/hooks/useAuth";
-import React, { useState } from 'react';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import React, { useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 export default function SignUp() {
   const { signUp } = useAuth();
@@ -16,7 +16,7 @@ export default function SignUp() {
     });
   };
 
-  const [phoneValue, setPhoneValue] = useState('');
+  const [phoneValue, setPhoneValue] = useState("");
 
   function handlePhoneInputChange(value) {
     setPhoneValue(value);
@@ -32,10 +32,10 @@ export default function SignUp() {
           <body class="h-full">
           ```
         */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-black">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img src={"/dashpod_logo.png"} className="mx-auto h-10 w-auto" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign up to your account
           </h2>
         </div>
@@ -45,7 +45,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Username
               </label>
@@ -63,7 +63,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Email
               </label>
@@ -81,7 +81,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="phone-input"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Phone
               </label>
@@ -91,11 +91,11 @@ export default function SignUp() {
                   value={phoneValue}
                   onChange={handlePhoneInputChange}
                   inputProps={{
-                    name: 'phone',
+                    name: "phone",
                     required: true,
                     autoFocus: true,
-                    placeholder: 'Enter phone number',
-                    style: { width: '383px'}
+                    placeholder: "Enter phone number",
+                    style: { width: "383px" },
                   }}
                 />
               </div>
@@ -104,7 +104,7 @@ export default function SignUp() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-white"
                 >
                   Password
                 </label>
@@ -142,7 +142,7 @@ export default function SignUp() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{" "}
             <a
-              href="/signin"
+              href="/"
               className="font-semibold leading-6 text-orange-600 hover:text-orange-500"
             >
               Sign in
