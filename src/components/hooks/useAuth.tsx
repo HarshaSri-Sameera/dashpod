@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: Props) => {
   async function signOut() {
     try {
       await Auth.signOut();
+      navigate("/");
     } catch (error) {
       console.log("error signing out: ", error);
     }

@@ -40,7 +40,7 @@ const getRandomColor = () => {
 };
 function Dashboard() {
   const [graphData, setGraphData] = useState([]);
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   function printDocument() {
     const input = document.getElementById("mainDashboardElement");
@@ -142,17 +142,31 @@ function Dashboard() {
                           <div className="border-b border-gray border-2 mt-2"></div>
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
-                              )}
+                              {({ active }) =>
+                                item.name === "Sign out" ? (
+                                  <span
+                                    onClick={() => {
+                                      signOut();
+                                    }}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </span>
+                                ) : (
+                                  <a
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                )
+                              }
                             </Menu.Item>
                           ))}
                         </Menu.Items>
