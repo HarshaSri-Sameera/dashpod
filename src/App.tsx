@@ -1,86 +1,167 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignUp from "./pages/signup";
-import SignInSide from "./pages/signin";
-import Dashboard from "./pages/dashboard";
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import ECommerce from './pages/Dashboard/ECommerce';
+import SignIn from './pages/Authentication/SignIn';
+import SignUp from './pages/Authentication/SignUp';
+import Loader from './common/Loader';
 import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import PrivateRouter from "./components/route/PrivateRoute";
-import OtpScreen from "./components/atoms/OTP";
-import WelcomeLayout from "./components/layouts/WelcomeLayout";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import Example from "./pages/demo";
-import CreateProfile from "./pages/signup/completeProfile";
-import "./App.css";
-
+import { useAuth } from './hooks/useAuth';
+import CreateProfile from './pages/Authentication/CreateProfile';
+import DashpodBlogs from './components/DashpodBlogs';
+import DashpodSupport from './components/DashpodSupport';
+import DashpodWebsite from './components/DashpodWebsite';
+const Calendar = lazy(() => import('./pages/Calendar'));
+const Chart = lazy(() => import('./pages/Chart'));
+const FormElements = lazy(() => import('./pages/Form/FormElements'));
+const FormLayout = lazy(() => import('./pages/Form/FormLayout'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Tables = lazy(() => import('./pages/Tables'));
+const Alerts = lazy(() => import('./pages/UiElements/Alerts'));
+const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
+const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 Amplify.configure(awsconfig);
-
 function App() {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#ffffff",
-      },
-      secondary: {
-        main: "#000000",
-      },
-      tertiary: {
-        lighter: "#bdbdbd",
-        light: "#828282",
-        main: "#4f4f4f",
-        dark: "#333333",
-        darker: "#252525",
-      },
-      text: {
-        primary: "#ffffff",
-      },
-    },
-  });
-  return (
-    <ThemeProvider theme={theme}>
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoggedIn,SetLoggedIn] = useState<boolean>(false)
+  const { isUserLoggedIn } = useAuth() as { isUserLoggedIn: () => Promise<boolean>}
+  useEffect(() => {
+    checkAuth()
+  }, []);
+
+  const checkAuth = async () => {
+    const isLogged = await isUserLoggedIn()
+    SetLoggedIn(!isLogged)
+    setLoading(false)
+  }
+
+  if(loading) {
+    return <Loader />
+  }
+
+  if(isLoggedIn) {
+    return (
       <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRouter>
-              <Dashboard />
-            </PrivateRouter>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <WelcomeLayout>
-              <SignInSide />
-            </WelcomeLayout>
-          }
-        />
-        <Route
-          path="/confirm-user"
-          element={
-            <WelcomeLayout>
-              <OtpScreen />
-            </WelcomeLayout>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <WelcomeLayout>
-              <SignUp />
-            </WelcomeLayout>
-          }
-        />
-        <Route
-          path="/demo"
-          element={
-            <WelcomeLayout>
-              <Example />
-            </WelcomeLayout>
-          }
-        />
-        <Route path="/completeProfile" element={<CreateProfile />} />
+      <Route path="*" element={<SignIn />} />
+      {/*
+// @ts-ignore*/}
+      <Route path="/auth/signup" exact element={<SignUp />} />
+      <Route path='/auth/create-profile' element={<CreateProfile />} />
+    </Routes>
+    )
+  }
+
+  return loading ? (
+    <Loader />
+  ) : (
+    <>
+      <Routes>
+        {/* <Route path="/auth/signin" element={<SignIn />} />
+        <Route path="/auth/signup" element={<SignUp />} /> */}
+        <Route element={<DefaultLayout />}>
+          <Route index element={<ECommerce />} />
+          <Route
+            path="/calendar"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Calendar />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Profile />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/forms/form-elements"
+            element={
+              <Suspense fallback={<Loader />}>
+                <FormElements />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/forms/form-layout"
+            element={
+              <Suspense fallback={<Loader />}>
+                <FormLayout />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/tables"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Tables />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/blogs"
+            element={
+              <Suspense fallback={<Loader />}>
+                <DashpodBlogs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/support"
+            element={
+              <Suspense fallback={<Loader />}>
+                <DashpodSupport />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/dashpod"
+            element={
+              <Suspense fallback={<Loader />}>
+                <DashpodWebsite />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Settings />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/chart"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Chart />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/ui/alerts"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Alerts />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/ui/buttons"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Buttons />
+              </Suspense>
+            }
+          />
+        <Route path='/create-profile' element={<CreateProfile />} />
+        </Route>
       </Routes>
-    </ThemeProvider>
+    </>
   );
 }
 
