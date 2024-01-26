@@ -16,7 +16,7 @@ const CardTwo = ({firstName = "",lastName = "",playerId = "",activityName = "",r
   activityName: string;
 }) => {
   const [profile,setProfile] = useAtom(useProfiles)
-  const getDateTime = moment.unix(rawData?.dateAndTime).format('DD-MM-YYYY hh:mm a')
+  // const getDateTime = moment.unix(rawData?.dateAndTime).format('DD-MM-YYYY hh:mm a')
 
   return (
     <div  className={`relative rounded-md border overflow-hidden shadow-2xl border-stroke max-h-34 z-auto h-35  cursor-pointer`} onClick={() => setProfile((prev: any) => {
@@ -46,7 +46,7 @@ const CardTwo = ({firstName = "",lastName = "",playerId = "",activityName = "",r
           {firstName + " " + lastName}
         </h4>
         <span className={`text-sm font-medium  ${profile.includes(playerId) ? `text-white` : 'text-white' }`}>Activity Name: {activityName}</span>
-        <span className={`text-sm font-medium  ${profile.includes(playerId) ? `text-white` : 'text-white' }`}>Date: {getDateTime}</span>
+        <span className={`text-sm font-medium  ${profile.includes(playerId) ? `text-white` : 'text-white' }`}>Date: {rawData?.dateAndTime}</span>
       </div>
 
       {/* <span className="flex items-center gap-1 text-sm font-medium text-meta-3">

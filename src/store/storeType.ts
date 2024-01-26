@@ -22,4 +22,5 @@ export interface ProfileType {
     pinCode: any
     location: any
     areasOfIntrest: any
+    dashpodId?: string
   }

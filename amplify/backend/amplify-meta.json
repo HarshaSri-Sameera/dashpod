@@ -1,0 +1,81 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dashpodapp-dev-112013-authRole",
+      "UnauthRoleArn": "arn:aws:iam::487032740293:role/amplify-dashpodapp-dev-112013-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::487032740293:role/amplify-dashpodapp-dev-112013-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-dashpodapp-dev-112013-deployment",
+      "UnauthRoleName": "amplify-dashpodapp-dev-112013-unauthRole",
+      "StackName": "amplify-dashpodapp-dev-112013",
+      "StackId": "arn:aws:cloudformation:ap-south-1:487032740293:stack/amplify-dashpodapp-dev-112013/94751c20-52c2-11ee-a32c-0620054bcd92",
+      "AmplifyAppId": "dwtu9jenln58r"
+    }
+  },
+  "api": {
+    "dashpodapp": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-09-13T05:52:23.917Z",
+              "apiKeyExpirationDays": 365,
+              "description": ""
+            },
+            "authenticationType": "API_KEY"
+          }
+        },
+        "GraphQLAPIIdOutput": "3vj46blkfnf37kfqm4kgz7hkry",
+        "GraphQLAPIEndpointOutput": "https://z263vc5ssrbujo44frrlrxkqju.appsync-api.ap-south-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-x2ybyeuvwracnmcvdahbnwq26e"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-11-08T11:21:38.783Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dashpodapp-dev-112013-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apidashpodapp"
+      }
+    }
+  },
+  "auth": {
+    "dashpodapp52e40c90": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "output": {
+        "UserPoolId": "ap-south-1_DtJrP8eNW",
+        "UserPoolName": "dashpod516d03fb_userpool_516d03fb-dev",
+        "AppClientID": "2e3sti5jg7tftfa3ht2hhnoi4d",
+        "AppClientIDWeb": "h87sd7nfligqba265g9tet8lh",
+        "HostedUIDomain": "dashpod-dev",
+        "IdentityPoolId": "ap-south-1:1537e135-5456-48d7-859a-cd327e03228b",
+        "IdentityPoolName": "dashpod516d03fb_identitypool_516d03fb__dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"aws.cognito.signin.user.admin\",\"email\",\"openid\",\"phone\",\"profile\"],\"CallbackURLs\":[\"dashpod://\"],\"LogoutURLs\":[\"dashpod://\"]}"
+      },
+      "frontendAuthConfig": {
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "lastPushTimeStamp": "2023-09-14T06:49:42.480Z"
+    }
+  }
+}

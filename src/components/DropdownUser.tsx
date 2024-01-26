@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useAtom } from 'jotai';
 import { useUserProfile } from '../store/dashboardAtom';
 import PersonPlaceHolder from "../images/product/person-placeholder.jpg";
-
+import _ from 'lodash'
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   // const navigate = useNavigate();
@@ -50,6 +50,9 @@ const DropdownUser = () => {
     })
     .catch(err => toast.error(err));
   }
+
+  console.log('profileUser?.firstName',profileUser,_.isNil(profileUser?.firstName),typeof profileUser?.firstName,profileUser?.lastName,typeof profileUser?.lastName);
+  
   return (
     <div className="relative">
       <Link
@@ -60,7 +63,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {profileUser?.firstName + ' ' + profileUser?.lastName}
+            {`${!_.isNil(profileUser?.firstName) ? profileUser?.firstName : 'Thomas'}  ${!_.isNil(profileUser?.lastName) ? profileUser?.lastName : 'Anree'}`}
           </span>
           <span className="block text-xs">{profileUser?.emailId}</span>
         </span>

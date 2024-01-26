@@ -1,0 +1,696 @@
+type Profile {
+  playerId: String!
+  accountId: String!
+  profileId: Int
+  academyName: String
+  firstName: String
+  lastName: String
+  mobileNumber: String
+  emailId: String
+  dob: String
+  height: String
+  weight: String
+  gender: String
+  updateMeasurements: String
+  updateInterval: String
+  buildingName: String
+  street: String
+  locality: String
+  city: String
+  state: String
+  country: String
+  pinCode: String
+  location: String
+  areasOfIntrest: [String!]
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type RegisterRecord {
+  recordId: String!
+  accountId: String!
+  playerId: String!
+  playerName: String
+  activityId: String
+  activityName: String
+  base: String
+  color: Int
+  colorCode: Int
+  startTime: String
+  prevMacId: String
+  currentMacId: String
+  hitCount: Int
+  missCount: Int
+  avgTime: String
+  playerAge: String
+  gender: String
+  height: String
+  weight: String
+  lastName: String
+  dateAndTime: String
+  podsCount: String
+  activityDuration: String
+  podName: String
+  categoryName: String
+  categoryId: String
+  analyticsValuesList: [AnalyticsValues]
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type AnalyticsValues {
+  podName: String
+  podColor: String
+  podAddress: String
+  isHit: String
+  entryX: Float
+  entryY: Float
+}
+
+type DashPod {
+  podMacId: String!
+  accountId: String!
+  podName: String
+  podType: String
+  start_date: String
+  update_date: String
+  createdAt: String
+  updatedAt: String
+  id: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelProfileConnection {
+  items: [Profile]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelProfileFilterInput {
+  playerId: ModelStringInput
+  accountId: ModelStringInput
+  profileId: ModelIntInput
+  academyName: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  mobileNumber: ModelStringInput
+  emailId: ModelStringInput
+  dob: ModelStringInput
+  height: ModelStringInput
+  weight: ModelStringInput
+  gender: ModelStringInput
+  updateMeasurements: ModelStringInput
+  updateInterval: ModelStringInput
+  buildingName: ModelStringInput
+  street: ModelStringInput
+  locality: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  country: ModelStringInput
+  pinCode: ModelStringInput
+  location: ModelStringInput
+  areasOfIntrest: ModelStringInput
+  and: [ModelProfileFilterInput]
+  or: [ModelProfileFilterInput]
+  not: ModelProfileFilterInput
+  _deleted: ModelBooleanInput
+}
+
+type Query {
+  getProfile(id: ID!): Profile
+  listProfiles(filter: ModelProfileFilterInput, limit: Int, nextToken: String): ModelProfileConnection
+  syncProfiles(filter: ModelProfileFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelProfileConnection
+  getRegisterRecord(id: ID!): RegisterRecord
+  listRegisterRecords(filter: ModelRegisterRecordFilterInput, limit: Int, nextToken: String): ModelRegisterRecordConnection
+  syncRegisterRecords(filter: ModelRegisterRecordFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelRegisterRecordConnection
+  getDashPod(id: ID!): DashPod
+  listDashPods(filter: ModelDashPodFilterInput, limit: Int, nextToken: String): ModelDashPodConnection
+  syncDashPods(filter: ModelDashPodFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelDashPodConnection
+}
+
+input ModelProfileConditionInput {
+  playerId: ModelStringInput
+  accountId: ModelStringInput
+  profileId: ModelIntInput
+  academyName: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  mobileNumber: ModelStringInput
+  emailId: ModelStringInput
+  dob: ModelStringInput
+  height: ModelStringInput
+  weight: ModelStringInput
+  gender: ModelStringInput
+  updateMeasurements: ModelStringInput
+  updateInterval: ModelStringInput
+  buildingName: ModelStringInput
+  street: ModelStringInput
+  locality: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  country: ModelStringInput
+  pinCode: ModelStringInput
+  location: ModelStringInput
+  areasOfIntrest: ModelStringInput
+  and: [ModelProfileConditionInput]
+  or: [ModelProfileConditionInput]
+  not: ModelProfileConditionInput
+  _deleted: ModelBooleanInput
+}
+
+input CreateProfileInput {
+  playerId: String!
+  accountId: String!
+  profileId: Int
+  academyName: String
+  firstName: String
+  lastName: String
+  mobileNumber: String
+  emailId: String
+  dob: String
+  height: String
+  weight: String
+  gender: String
+  updateMeasurements: String
+  updateInterval: String
+  buildingName: String
+  street: String
+  locality: String
+  city: String
+  state: String
+  country: String
+  pinCode: String
+  location: String
+  areasOfIntrest: [String!]
+  id: ID
+  _version: Int
+}
+
+input UpdateProfileInput {
+  playerId: String
+  accountId: String
+  profileId: Int
+  academyName: String
+  firstName: String
+  lastName: String
+  mobileNumber: String
+  emailId: String
+  dob: String
+  height: String
+  weight: String
+  gender: String
+  updateMeasurements: String
+  updateInterval: String
+  buildingName: String
+  street: String
+  locality: String
+  city: String
+  state: String
+  country: String
+  pinCode: String
+  location: String
+  areasOfIntrest: [String!]
+  id: ID!
+  _version: Int
+}
+
+input DeleteProfileInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createProfile(input: CreateProfileInput!, condition: ModelProfileConditionInput): Profile
+  updateProfile(input: UpdateProfileInput!, condition: ModelProfileConditionInput): Profile
+  deleteProfile(input: DeleteProfileInput!, condition: ModelProfileConditionInput): Profile
+  createRegisterRecord(input: CreateRegisterRecordInput!, condition: ModelRegisterRecordConditionInput): RegisterRecord
+  updateRegisterRecord(input: UpdateRegisterRecordInput!, condition: ModelRegisterRecordConditionInput): RegisterRecord
+  deleteRegisterRecord(input: DeleteRegisterRecordInput!, condition: ModelRegisterRecordConditionInput): RegisterRecord
+  createDashPod(input: CreateDashPodInput!, condition: ModelDashPodConditionInput): DashPod
+  updateDashPod(input: UpdateDashPodInput!, condition: ModelDashPodConditionInput): DashPod
+  deleteDashPod(input: DeleteDashPodInput!, condition: ModelDashPodConditionInput): DashPod
+}
+
+input ModelSubscriptionProfileFilterInput {
+  playerId: ModelSubscriptionStringInput
+  accountId: ModelSubscriptionStringInput
+  profileId: ModelSubscriptionIntInput
+  academyName: ModelSubscriptionStringInput
+  firstName: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
+  mobileNumber: ModelSubscriptionStringInput
+  emailId: ModelSubscriptionStringInput
+  dob: ModelSubscriptionStringInput
+  height: ModelSubscriptionStringInput
+  weight: ModelSubscriptionStringInput
+  gender: ModelSubscriptionStringInput
+  updateMeasurements: ModelSubscriptionStringInput
+  updateInterval: ModelSubscriptionStringInput
+  buildingName: ModelSubscriptionStringInput
+  street: ModelSubscriptionStringInput
+  locality: ModelSubscriptionStringInput
+  city: ModelSubscriptionStringInput
+  state: ModelSubscriptionStringInput
+  country: ModelSubscriptionStringInput
+  pinCode: ModelSubscriptionStringInput
+  location: ModelSubscriptionStringInput
+  areasOfIntrest: ModelSubscriptionStringInput
+  and: [ModelSubscriptionProfileFilterInput]
+  or: [ModelSubscriptionProfileFilterInput]
+  _deleted: ModelBooleanInput
+}
+
+type Subscription {
+  onCreateProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["createProfile"])
+  onUpdateProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["updateProfile"])
+  onDeleteProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["deleteProfile"])
+  onCreateRegisterRecord(filter: ModelSubscriptionRegisterRecordFilterInput): RegisterRecord @aws_subscribe(mutations: ["createRegisterRecord"])
+  onUpdateRegisterRecord(filter: ModelSubscriptionRegisterRecordFilterInput): RegisterRecord @aws_subscribe(mutations: ["updateRegisterRecord"])
+  onDeleteRegisterRecord(filter: ModelSubscriptionRegisterRecordFilterInput): RegisterRecord @aws_subscribe(mutations: ["deleteRegisterRecord"])
+  onCreateDashPod(filter: ModelSubscriptionDashPodFilterInput): DashPod @aws_subscribe(mutations: ["createDashPod"])
+  onUpdateDashPod(filter: ModelSubscriptionDashPodFilterInput): DashPod @aws_subscribe(mutations: ["updateDashPod"])
+  onDeleteDashPod(filter: ModelSubscriptionDashPodFilterInput): DashPod @aws_subscribe(mutations: ["deleteDashPod"])
+}
+
+input AnalyticsValuesInput {
+  podName: String
+  podColor: String
+  podAddress: String
+  isHit: String
+  entryX: Float
+  entryY: Float
+}
+
+type ModelRegisterRecordConnection {
+  items: [RegisterRecord]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelRegisterRecordFilterInput {
+  recordId: ModelStringInput
+  accountId: ModelStringInput
+  playerId: ModelStringInput
+  playerName: ModelStringInput
+  activityId: ModelStringInput
+  activityName: ModelStringInput
+  base: ModelStringInput
+  color: ModelIntInput
+  colorCode: ModelIntInput
+  startTime: ModelStringInput
+  prevMacId: ModelStringInput
+  currentMacId: ModelStringInput
+  hitCount: ModelIntInput
+  missCount: ModelIntInput
+  avgTime: ModelStringInput
+  playerAge: ModelStringInput
+  gender: ModelStringInput
+  height: ModelStringInput
+  weight: ModelStringInput
+  lastName: ModelStringInput
+  dateAndTime: ModelStringInput
+  podsCount: ModelStringInput
+  activityDuration: ModelStringInput
+  podName: ModelStringInput
+  categoryName: ModelStringInput
+  categoryId: ModelStringInput
+  and: [ModelRegisterRecordFilterInput]
+  or: [ModelRegisterRecordFilterInput]
+  not: ModelRegisterRecordFilterInput
+  _deleted: ModelBooleanInput
+}
+
+input ModelRegisterRecordConditionInput {
+  recordId: ModelStringInput
+  accountId: ModelStringInput
+  playerId: ModelStringInput
+  playerName: ModelStringInput
+  activityId: ModelStringInput
+  activityName: ModelStringInput
+  base: ModelStringInput
+  color: ModelIntInput
+  colorCode: ModelIntInput
+  startTime: ModelStringInput
+  prevMacId: ModelStringInput
+  currentMacId: ModelStringInput
+  hitCount: ModelIntInput
+  missCount: ModelIntInput
+  avgTime: ModelStringInput
+  playerAge: ModelStringInput
+  gender: ModelStringInput
+  height: ModelStringInput
+  weight: ModelStringInput
+  lastName: ModelStringInput
+  dateAndTime: ModelStringInput
+  podsCount: ModelStringInput
+  activityDuration: ModelStringInput
+  podName: ModelStringInput
+  categoryName: ModelStringInput
+  categoryId: ModelStringInput
+  and: [ModelRegisterRecordConditionInput]
+  or: [ModelRegisterRecordConditionInput]
+  not: ModelRegisterRecordConditionInput
+  _deleted: ModelBooleanInput
+}
+
+input CreateRegisterRecordInput {
+  recordId: String!
+  accountId: String!
+  playerId: String!
+  playerName: String
+  activityId: String
+  activityName: String
+  base: String
+  color: Int
+  colorCode: Int
+  startTime: String
+  prevMacId: String
+  currentMacId: String
+  hitCount: Int
+  missCount: Int
+  avgTime: String
+  playerAge: String
+  gender: String
+  height: String
+  weight: String
+  lastName: String
+  dateAndTime: String
+  podsCount: String
+  activityDuration: String
+  podName: String
+  categoryName: String
+  categoryId: String
+  analyticsValuesList: [AnalyticsValuesInput]
+  id: ID
+  _version: Int
+}
+
+input UpdateRegisterRecordInput {
+  recordId: String
+  accountId: String
+  playerId: String
+  playerName: String
+  activityId: String
+  activityName: String
+  base: String
+  color: Int
+  colorCode: Int
+  startTime: String
+  prevMacId: String
+  currentMacId: String
+  hitCount: Int
+  missCount: Int
+  avgTime: String
+  playerAge: String
+  gender: String
+  height: String
+  weight: String
+  lastName: String
+  dateAndTime: String
+  podsCount: String
+  activityDuration: String
+  podName: String
+  categoryName: String
+  categoryId: String
+  analyticsValuesList: [AnalyticsValuesInput]
+  id: ID!
+  _version: Int
+}
+
+input DeleteRegisterRecordInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionRegisterRecordFilterInput {
+  recordId: ModelSubscriptionStringInput
+  accountId: ModelSubscriptionStringInput
+  playerId: ModelSubscriptionStringInput
+  playerName: ModelSubscriptionStringInput
+  activityId: ModelSubscriptionStringInput
+  activityName: ModelSubscriptionStringInput
+  base: ModelSubscriptionStringInput
+  color: ModelSubscriptionIntInput
+  colorCode: ModelSubscriptionIntInput
+  startTime: ModelSubscriptionStringInput
+  prevMacId: ModelSubscriptionStringInput
+  currentMacId: ModelSubscriptionStringInput
+  hitCount: ModelSubscriptionIntInput
+  missCount: ModelSubscriptionIntInput
+  avgTime: ModelSubscriptionStringInput
+  playerAge: ModelSubscriptionStringInput
+  gender: ModelSubscriptionStringInput
+  height: ModelSubscriptionStringInput
+  weight: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
+  dateAndTime: ModelSubscriptionStringInput
+  podsCount: ModelSubscriptionStringInput
+  activityDuration: ModelSubscriptionStringInput
+  podName: ModelSubscriptionStringInput
+  categoryName: ModelSubscriptionStringInput
+  categoryId: ModelSubscriptionStringInput
+  and: [ModelSubscriptionRegisterRecordFilterInput]
+  or: [ModelSubscriptionRegisterRecordFilterInput]
+  _deleted: ModelBooleanInput
+}
+
+type ModelDashPodConnection {
+  items: [DashPod]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelDashPodFilterInput {
+  podMacId: ModelStringInput
+  accountId: ModelStringInput
+  podName: ModelStringInput
+  podType: ModelStringInput
+  start_date: ModelStringInput
+  update_date: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelDashPodFilterInput]
+  or: [ModelDashPodFilterInput]
+  not: ModelDashPodFilterInput
+  _deleted: ModelBooleanInput
+}
+
+input ModelDashPodConditionInput {
+  podMacId: ModelStringInput
+  accountId: ModelStringInput
+  podName: ModelStringInput
+  podType: ModelStringInput
+  start_date: ModelStringInput
+  update_date: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelDashPodConditionInput]
+  or: [ModelDashPodConditionInput]
+  not: ModelDashPodConditionInput
+  _deleted: ModelBooleanInput
+}
+
+input CreateDashPodInput {
+  podMacId: String!
+  accountId: String!
+  podName: String
+  podType: String
+  start_date: String
+  update_date: String
+  createdAt: String
+  updatedAt: String
+  id: ID
+  _version: Int
+}
+
+input UpdateDashPodInput {
+  podMacId: String
+  accountId: String
+  podName: String
+  podType: String
+  start_date: String
+  update_date: String
+  createdAt: String
+  updatedAt: String
+  id: ID!
+  _version: Int
+}
+
+input DeleteDashPodInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionDashPodFilterInput {
+  podMacId: ModelSubscriptionStringInput
+  accountId: ModelSubscriptionStringInput
+  podName: ModelSubscriptionStringInput
+  podType: ModelSubscriptionStringInput
+  start_date: ModelSubscriptionStringInput
+  update_date: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionDashPodFilterInput]
+  or: [ModelSubscriptionDashPodFilterInput]
+  _deleted: ModelBooleanInput
+}

@@ -3,32 +3,40 @@
 
 const awsmobile = {
     "aws_project_region": "ap-south-1",
-    "aws_appsync_graphqlEndpoint": "https://l55f6huzfvapfoy2kotxfcf3ni.appsync-api.ap-south-1.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://z263vc5ssrbujo44frrlrxkqju.appsync-api.ap-south-1.amazonaws.com/graphql",
     "aws_appsync_region": "ap-south-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-r4liw2wf3ve5hf5xndovy7rqqq",
+    "aws_appsync_apiKey": "da2-x2ybyeuvwracnmcvdahbnwq26e",
+    "aws_cognito_identity_pool_id": "ap-south-1:1537e135-5456-48d7-859a-cd327e03228b",
     "aws_cognito_region": "ap-south-1",
-    "aws_user_pools_id": "ap-south-1_FQfqBsiBM",
-    "aws_user_pools_web_client_id": "244vj9lfveju3hf9elm7566ucl",
+    "aws_user_pools_id": "ap-south-1_DtJrP8eNW",
+    "aws_user_pools_web_client_id": "h87sd7nfligqba265g9tet8lh",
     "oauth": {
-        "domain": "dashpod.auth.ap-south-1.amazoncognito.com"
+        "domain": "dashpod-dev.auth.ap-south-1.amazoncognito.com",
+        "scope": [
+            "aws.cognito.signin.user.admin",
+            "email",
+            "openid",
+            "phone",
+            "profile"
+        ],
+        "redirectSignIn": "dashpod://",
+        "redirectSignOut": "dashpod://",
+        "responseType": "code"
     },
+    "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [],
-    "aws_cognito_social_providers": [],
+    "aws_cognito_social_providers": [
+        "GOOGLE"
+    ],
     "aws_cognito_signup_attributes": [
-        "EMAIL",
-        "PHONE_NUMBER"
+        "EMAIL"
     ],
     "aws_cognito_mfa_configuration": "OFF",
     "aws_cognito_mfa_types": [],
     "aws_cognito_password_protection_settings": {
         "passwordPolicyMinLength": 8,
-        "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_UPPERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS"
-        ]
+        "passwordPolicyCharacters": []
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"

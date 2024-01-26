@@ -1,0 +1,121 @@
+{
+  "api": {
+    "dashpodapp": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-09-13T05:52:23.917Z",
+              "apiKeyExpirationDays": 365,
+              "description": ""
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "dashpodapp52e40c90": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_dashpodapp52e40c90_allowUnauthenticatedIdentities": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_authRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_authRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_identityPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_identityPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_unauthRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_unauthRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    },
+    "AMPLIFY_auth_dashpodapp52e40c90_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dashpodapp52e40c90"
+        }
+      ]
+    }
+  }
+}

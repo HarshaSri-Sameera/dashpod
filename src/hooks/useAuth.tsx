@@ -14,6 +14,7 @@ import GetProfile from "../graphqlQueries/GetProfile";
 import { API, graphqlOperation } from "aws-amplify";
 import { useAtom } from "jotai";
 import { userData } from "../store/dashboardAtom";
+import toast from "react-hot-toast";
 
 interface Props {
   children?: React.ReactNode;
@@ -43,18 +44,24 @@ export const AuthProvider = ({ children }: Props) => {
   }
   //@ts-ignore
   async function signIn({ username, password }) {
+    const toastId = toast.loading("Logging in, please wait...");
     try {
       const user = await Auth.signIn(username, password);
       if (user?.attributes?.email_verified) {
         console.log('isUserLoggedIn',user);
-        
+        toast.success('Login successful!',{
+          id: toastId
+        })
         setUser(user.attributes);
         // navigate("/");
         window.location.replace('/')
       }
-    } catch (e) {
+    } catch (e: any) {
       var newError = new Error("User is not confirmed.");
-      if (e.message === newError.message) {
+      toast.error(e?.message ?? 'Login Failed!',{
+        id: toastId
+      })
+      if (e?.message === newError.message) {
         navigate("/confirm-user");
       }
     }

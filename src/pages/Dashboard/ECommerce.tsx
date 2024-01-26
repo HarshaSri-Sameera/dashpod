@@ -10,13 +10,15 @@ import moment from 'moment';
 import DetailCard from './DetailCard.tsx';
 import FilterCard from './FilterCard.tsx';
 import { AiOutlineDownload,AiOutlineShareAlt } from 'react-icons/ai'
+
+import {getRegisterRecord, listRegisterRecords} from '../../graphql/queries.js'
+
+
 const containerProps = {
   width: '100%',
   height: 350,
   // border: '1px solid black',
 };
-
-
 
 
 
@@ -221,7 +223,8 @@ const ECommerce = () => {
   };
   
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    getRegisterRecords()
   }, []);
   const fetchData = async () => {
     console.log('attributes',user,user?.sub);
@@ -247,6 +250,38 @@ const ECommerce = () => {
       }
     }
   };
+
+  const getRegisterRecords = async () => {
+    console.log('getRegisterRecords',user,user?.sub);
+
+    const records = await API.graphql({ query: listRegisterRecords, variables:{
+      filter: {
+        accountId:{
+          eq: user?.sub
+        }
+      }
+    }
+    }) as { data: {
+      listRegisterRecords: {
+        status: string;
+        items: [{
+          
+        }]
+      }
+    } };
+
+    console.log('RegisterRecords',records.data.listRegisterRecords.items);
+
+    if(records?.data?.listRegisterRecords?.items?.length > 0){
+
+      const getData = records.data.listRegisterRecords.items as any[]
+      // @ts-ignore
+      // const sortData = getData.sort((a,b) =>  new Date(b?.dateAndTime * 1000) - new Date(a?.dateAndTime * 1000));
+      setGraphData(getData);
+    }
+  };
+
+
 
   useEffect(() => {
     if(Array.isArray(getGraphDataFiltered) && getGraphDataFiltered.length > 0 && "CanvasJS" in window) {

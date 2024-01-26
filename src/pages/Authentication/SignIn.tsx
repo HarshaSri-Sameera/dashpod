@@ -2,16 +2,20 @@ import { Link } from 'react-router-dom';
 // import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/dashpod_logo.png';
 import { useAuth } from '../../hooks/useAuth';
+import { useState } from 'react';
 
 const SignIn = () => {
-  const { signIn } = useAuth() as { signIn: ({ username, password}: { username: FormDataEntryValue | null,password: FormDataEntryValue | null}) => void };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [signHit,setSignHit] = useState(false)
+  const { signIn } = useAuth() as { signIn: ({ username, password}: { username: FormDataEntryValue | null,password: FormDataEntryValue | null}) => Promise<void> };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setSignHit(true)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    signIn({
+    await signIn({
       username: data.get("emailId"),
       password: data.get("passwordId"),
     });
+    setSignHit(false)
   };
   return (
     <>
@@ -24,9 +28,11 @@ const SignIn = () => {
                 <img className="dark:hidden" src={Logo} alt="Logo" />
               </Link>
 
-              <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+              <p className="xl:px-20 text-sm text-white">
+              MEASURE IMPROVE EXCEED
+              </p>
+              <p className="2xl:px-20 text-2xl	 text-[#d52905]">
+              Train with dashpod
               </p>
 
               <span className="mt-15 inline-block">
@@ -233,8 +239,8 @@ const SignIn = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
-                    value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-[#d52905] bg-[#d52905] p-4 text-white transition hover:bg-opacity-90"
+                    value="Signin"
+                    className={`w-full cursor-pointer rounded-lg border border-[#d52905]  ${signHit ? 'bg-[#c38b80]' : 'bg-[#d52905]' }  p-4 text-white transition hover:bg-opacity-90`}
                   />
                 </div>
 

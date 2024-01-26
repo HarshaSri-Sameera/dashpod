@@ -1,6 +1,6 @@
 const GetProfile = `
 query getProfiles ($accountId: String!){
-    getProfiles(accountId: $accountId, last_upd_time: "2023-03-21") {
+    getProfiles(accountId: $accountId, last_upd_time: "2023-07-21") {
       status
       data {
         playerId

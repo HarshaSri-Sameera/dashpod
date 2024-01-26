@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "dashpodapp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-dashpodapp-dev-112013-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/526b398956c5fcab9c61a173662d378e1d7e07c2"
+}

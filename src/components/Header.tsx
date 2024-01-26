@@ -8,8 +8,45 @@ import { useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { useAtom } from 'jotai';
 import { filterSubmit, selectProfiles, useGraphData, useUserProfile, userData } from '../store/dashboardAtom';
-import GetProfile from '../graphqlQueries/GetProfile';
+import {  listProfiles, getProfile  } from '../graphql/queries'
 import { ProfileType } from '../store/storeType';
+import _ from 'lodash';
+import { generateDashpodID, getRandomIntAsString } from '../util';
+
+
+export interface Profile {
+  playerId: string
+  accountId: string
+  profileId: number
+  academyName: string
+  firstName: string
+  lastName: string
+  mobileNumber: string
+  emailId: string
+  dob: string
+  height: string
+  weight: string
+  gender: string
+  updateMeasurements: any
+  updateInterval: string
+  buildingName: any
+  street: any
+  locality: any
+  city: any
+  state: any
+  country: any
+  pinCode: any
+  location: any
+  areasOfIntrest: any
+  id: string
+  createdAt: string
+  updatedAt: string
+  _version: number
+  _deleted: any
+  _lastChangedAt: number
+  __typename: string
+}
+
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -18,29 +55,52 @@ const Header = (props: {
   const [user,] = useAtom(userData);
   const [,setProfileUser] = useAtom(useUserProfile)
   const fetchProfile = async () => {
-    const { data } = await API.graphql(graphqlOperation(GetProfile, { accountId: user?.sub })) as {
-      data: {
-        getProfiles: {
-          status: string;
-          data: {
-
+    const {data} = await API.graphql({ query: listProfiles,   variables: {
+      id: user?.sub, // Provide a specific ID here
+    },
+    }) as {
+        data: {
+          listProfiles: {
+            status: string;
+            items: Profile[]
           }
         }
+      };
+    // const { data } = await API.graphql(graphqlOperation(getProfile, { accountId: user?.sub })) as {
+    //   data: {
+    //     getProfiles: {
+    //       status: string;
+    //       data: {
+
+    //       }
+    //     }
+    //   }
+    // };
+    console.log('getUserProfile',data?.listProfiles?.items); 
+    if(data?.listProfiles?.items && Array.isArray(data?.listProfiles?.items)) {
+      const getUserProfile = data.listProfiles?.items.find(it => it.accountId === user?.sub && !(_.isNil(it.emailId) || _.isEmpty(it.emailId)))
+      if(getUserProfile && getUserProfile as ProfileType) {
+        const generatedDashPodId = generateDashpodID(getUserProfile.emailId,getUserProfile.firstName + '' + getUserProfile.lastName,getUserProfile?.mobileNumber ?? getRandomIntAsString(10,11))
+        const userProfile  = {
+          ...getUserProfile,
+          dashpodId: generatedDashPodId
+        }
+        setProfileUser(userProfile as ProfileType)
       }
-    };
-    console.log('dataaa',data)
-    if (
-      data?.getProfiles?.data &&
-      data?.getProfiles?.status === "success" && 
-      Array.isArray(data?.getProfiles.data) &&
-      data?.getProfiles.data.length > 0
-    ) {
-      const getUserProfile = data?.getProfiles.data.find((it: ProfileType) => it.profileId === 1)
-      if(getUserProfile) {
-        setProfileUser(getUserProfile as ProfileType)
-      }
-      console.log('filterSubmit, selectProfiles,',getUserProfile)
     }
+    // console.log('dataaa',items,getUserProfile,items.filter(it => it.accountId === user?.sub),user)
+    // if (
+    //   data?.getProfiles?.data &&
+    //   data?.getProfiles?.status === "success" && 
+    //   Array.isArray(data?.getProfiles.data) &&
+    //   data?.getProfiles.data.length > 0
+    // ) {
+    //   const getUserProfile = data?.getProfiles.data.find((it: ProfileType) => it.profileId === )
+    //   if(getUserProfile) {
+    //     setProfileUser(getUserProfile as ProfileType)
+    //   }
+    //   console.log('filterSubmit, selectProfiles,',getUserProfile)
+    // }
   }
   useEffect(() => {
     fetchProfile()
@@ -140,11 +200,11 @@ const Header = (props: {
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
+            {/* <DropdownNotification /> */}
             {/* <!-- Notification Menu Area --> */}
 
             {/* <!-- Chat Notification Area --> */}
-            <DropdownMessage />
+            {/* <DropdownMessage /> */}
             {/* <!-- Chat Notification Area --> */}
           </ul>
 

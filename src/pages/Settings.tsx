@@ -142,9 +142,30 @@ const Settings = () => {
                         id="emailAddress"
                       
                       >
-{profileUser ? profileUser.emailId : "devidjond45@gmail.com"}
+{profileUser?.emailId ? profileUser.emailId : "devidjond45@gmail.com"}
                       </p>
                     </div>
+                  </div>
+
+            <div className="mb-5.5">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="Username"
+                    >
+                      Dashpod ID
+                    </label>
+                    {/* <input
+                      className=""
+                      type="text"
+                      name="Username"
+                      id="Username"
+                      placeholder="devidjhon24"
+                      defaultValue=
+                    /> */}
+                    <p id="Username" className='w-full rounded border border-stroke bg-gray py-3 px-4.5 font-semibold text-[#e94c2b] focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-[#e94c2b] dark:focus:border-primary'>
+            {profileUser?.dashpodId ? profileUser.dashpodId : ''}
+
+                    </p>
                   </div>
 
                   <div className="mb-5.5">
@@ -181,8 +202,7 @@ const Settings = () => {
                       </IconContext.Provider>
                       </span>
                       <p className='w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris tempus ut. Donec fermentum blandit aliquet.
-                      </p>
+                        </p>
                       {/* <textarea
                         className=""
                         name="bio"

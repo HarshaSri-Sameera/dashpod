@@ -44,9 +44,11 @@ const SignUp = () => {
                 <img className="hidden dark:block" src={Logo} alt="Logo" />
                 <img className="dark:hidden" src={Logo} alt="Logo" />
               </Link>
-              <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+              <p className="xl:px-20 text-sm text-white">
+              MEASURE IMPROVE EXCEED
+              </p>
+              <p className="2xl:px-20 text-2xl	 text-[#d52905]">
+              Train with dashpod
               </p>
 
               <span className="mt-15 inline-block">
